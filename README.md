@@ -1,49 +1,100 @@
-
-# Multi-Label Confusion Matrix (Corrected Implementation)
+# Multi-Label Confusion Matrix
 
 This repository provides a corrected implementation of the multilabel confusion matrix described in the original paper.
 
-The original repository contains two issues:
-- deprecated `np.int` usage which breaks with modern NumPy versions
-- small inconsistencies between the implementation and the procedure described in the paper
+## Issues Fixed
 
-Since the original repository does not appear to be actively maintained, this implementation fixes these issues and aims to provide a working and faithful reference implementation.
+The original repository contained:
+- Deprecated `np.int` usage which breaks with modern NumPy versions
+- Small inconsistencies between the implementation and the procedure described in the paper
 
 
+This implementation fixes these issues and provides a working, faithful reference implementation.
 
-This repository is based on the original implementation provided by the authors.
+## License
 
 The original work is licensed under the Creative Commons Attribution 4.0 License (CC BY 4.0).
 This repository includes modifications and fixes to the original implementation.
 
+## References
 
-# Functionality
-To retrieve a confusion matrix, run cm(true_labels, predicted_labels).
+This implementation is based on:
 
-The labels are lists where each entry corresponds to instance i. Each instance is a list of length num_classes with hot encoded classes. An example:
-
-True Labels: A,D,E  
-Predicted Labels: A,C,D
-
-cm then expencts the hot encoded labels as:
-true_labels = [1,0,0,1,1]
-predicted_labels = [1,0,1,1,0]
-
-## 1. CM
-
-
-## 2. Case distinction
-The paper distinguishes three cases of how true and predicted labels are related. Those are:
-### I. 
+M. Heydarian, T. Doyle, and R. Samavi, "MLCM: Multi-Label Confusion Matrix," IEEE Access, Feb. 2022, DOI: 10.1109/ACCESS.2022.3151048
 
 
 
-# Correction Case
-The original repository failes e.g. in the following case:
-pred_labels = [1,0,0,1]
-true_labels = [1,1,1,0]
+## Installation
 
-where it yields:
+Install the package using pip:
+
+```bash
+pip install -e .
+```
+
+## Usage
+
+### Basic Usage
+
+To compute a confusion matrix, use the `cm()` function:
+
+```python
+from mlcm_fixed import cm
+import numpy as np
+
+# Create binary encoded labels (one row per instance, one column per class)
+true_labels = np.array([[1, 0, 1], [0, 1, 1]])      # 2 instances, 3 classes
+predicted_labels = np.array([[1, 0, 0], [0, 1, 1]])
+
+# Get raw and normalized confusion matrices
+raw_cm, normalized_cm = cm(true_labels, predicted_labels)
+print(raw_cm)
+print(normalized_cm)
+```
+
+### Label Encoding Example
+
+For instance with True Labels: A, D, E and Predicted Labels: A, C, D
+
+```python
+true_labels = [1, 0, 0, 1, 1]      # Classes: A, B, C, D, E
+predicted_labels = [1, 0, 1, 1, 0] # Classes: A, B, C, D, E
+```
+
+## Case Distinction
+
+The implementation distinguishes three cases based on how true and predicted labels relate:
+
+### Case I: P ⊆ T (Predicted is subset of True)
+All predicted labels are correct, but some true labels are missing.
+
+### Case II: T ⊂ P (True is subset of Predicted)
+All true labels are predicted, but some additional incorrect predictions exist.
+
+### Case III: Neither P ⊆ T nor T ⊆ P
+Some true labels are missing AND some incorrect predictions exist simultaneously.
+
+The algorithms for handling each case are described in the original paper.
+
+## Available Functions
+
+- `cm(label_true, label_pred)` - Main function, returns raw and normalized confusion matrices
+- `conf_mat_case_1(label_true, label_pred)` - Confusion matrix for Case I
+- `conf_mat_case_2(label_true, label_pred)` - Confusion matrix for Case II
+- `con_mat_case_3(label_true, label_pred)` - Confusion matrix for Case III
+- `normalize_conf_matrix(matrix)` - Normalize confusion matrix row-wise
+- `category_of_instance(label_instance_true, label_instance_pred)` - Determine which case an instance belongs to
+
+## Example Correction
+
+The original repository would fail on this case:
+
+```python
+pred_labels = [1, 0, 0, 1]
+true_labels = [1, 1, 1, 0]
+```
+
+Original (incorrect) output:
 ```
 [[1 0 1 0 0]
  [0 0 0 0 0]
@@ -52,16 +103,14 @@ where it yields:
  [0 0 0 0 0]]
 ```
 
-But according to the paper, the algorithm should yield:
-
-
+Corrected output:
 ```
 [[1 0 0 0 0]
  [0 0 0 0 0]
  [0 0 0 0 0]
  [0 1 1 0 0]
  [0 0 0 0 0]]
- ```
+```
 
 
 
