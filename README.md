@@ -1,6 +1,6 @@
 # Multi-Label Confusion Matrix
 
-This repository provides a corrected implementation of the multilabel confusion matrix described in the original paper.
+This repository provides a corrected implementation of the multilabel confusion matrix described in the original paper "MLCM: Multi-Label Confusion Matrix" by  Heydarian et al.
 
 ## Issues Fixed
 
@@ -111,6 +111,42 @@ Corrected output:
  [0 1 1 0 0]
  [0 0 0 0 0]]
 ```
+
+## Complete Example
+
+Here's a complete example demonstrating all three cases:
+
+```python
+from mlcm_fixed import cm, conf_mat_case_1, conf_mat_case_2, con_mat_case_3
+import numpy as np
+
+# Example with 100 instances and 5 classes
+num_instances = 100
+num_classes = 5
+true_labels = np.random.randint(2, size=(num_instances, num_classes))
+pred_labels = np.random.randint(2, size=(num_instances, num_classes))
+
+# Get confusion matrices
+raw_cm, normalized_cm = cm(true_labels, pred_labels)
+
+print("Raw Confusion Matrix:")
+print(raw_cm)
+print("\nNormalized Confusion Matrix:")
+print(normalized_cm)
+
+# You can also get individual case matrices
+case1_cm = conf_mat_case_1(true_labels, pred_labels)
+case2_cm = conf_mat_case_2(true_labels, pred_labels)
+case3_cm = con_mat_case_3(true_labels, pred_labels)
+
+print("\nCase I (P ⊆ T):")
+print(case1_cm)
+print("\nCase II (T ⊂ P):")
+print(case2_cm)
+print("\nCase III (neither):")
+print(case3_cm)
+```
+
 
 
 
