@@ -1,7 +1,6 @@
 import numpy as np
 
 
-
 def check_for_issues(label_true, label_pred):
     if len(label_true) != len(label_pred):
         raise ValueError("The length of label_true and label_pred must be the same.")
@@ -36,8 +35,20 @@ def category_of_instance(label_instance_true, label_instance_pred):
     
     return 3
 
-def normalize(matrix):
-    pass
+def normalize_conf_matrix(matrix):
+    '''
+    The normalization happens row-wise, meaning that each row of the confusion matrix is divided by the sum of the elements in that row.
+    
+    :param matrix: The confusion matrix to be normalized.
+    :return: The normalized confusion matrix.
+    '''
+    
+    
+    divisor = matrix.sum(axis=1, keepdims=True)
+    divisor[divisor == 0] = 1
+    normalized_matrix = matrix / divisor
+    
+    return normalized_matrix
 
 
 
@@ -46,15 +57,27 @@ def normalize(matrix):
 
 
 def cm(label_true, label_pred):
+    '''
+    cm computes the confusion matrix for multi-label classification. It takes in the true labels and the predicted labels, and returns the confusion matrix and the normalized confusion matrix.
+    
+    :param label_true: True labels in the form of a 2D array, where each row corresponds to an instance and each column corresponds to a class. 
+    The values in the array should be binary (0 or 1), where 1 indicates the presence of a class and 0 indicates the absence of a class.
+    
+    :param label_pred: Predicted labels in the form of a 2D array, where each row corresponds to an instance and each column corresponds to a class. 
+    The values in the array should be binary (0 or 1), where 1 indicates the presence of a class and 0 indicates the absence of a class.
+    
+    :return: A tuple containing the confusion matrix and the normalized confusion matrix. 
+    The confusion matrix is a 2D array where the rows correspond to the true classes and the columns correspond to the predicted classes. 
+    '''
     cm1 = conf_mat_case_1(label_true, label_pred)
     cm2 = conf_mat_case_2(label_true, label_pred)
     cm3 = con_mat_case_3(label_true, label_pred)   
     conf_mat = cm1 + cm2 + cm3
     
     
-    normalize_conf_mat = normalize(conf_mat)
+    normalized_conf_mat = normalize_conf_matrix(conf_mat)
     
-    return conf_mat
+    return conf_mat, normalized_conf_mat
 
 
 
@@ -149,11 +172,3 @@ def con_mat_case_3(label_true, label_pred):
                     
                         
     return conf_mat
-
-
-    
-
-    
-    
-if __name__ == "__main__":
-    pass

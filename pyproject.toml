@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlcm_fixed"
+version = "0.1.0"
+description = "Multi-Label Confusion Matrix"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy",
+]
+
+[tool.setuptools]
+packages = ["mlcm_fixed"]
+
+[tool.setuptools.package-dir]
+mlcm_fixed = "src"
