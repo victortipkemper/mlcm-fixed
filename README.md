@@ -14,7 +14,8 @@ This implementation fixes these issues and provides a working, faithful referenc
 ## License
 
 The original work is licensed under the Creative Commons Attribution 4.0 License (CC BY 4.0).
-This repository includes modifications and fixes to the original implementation.
+This repository is not affiliated with the original authors.
+It is an independent implementation based on the algorithm described in the paper.
 
 ## References
 

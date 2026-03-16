@@ -16,8 +16,8 @@ dependencies = [
 
 
 [project.urls]
-Homepage = "https://github.com/victortipkemper/mlcm"
-Repository = "https://github.com/victortipkemper/mlcm"
+Homepage = "https://github.com/victortipkemper"
+Repository = "https://github.com/victortipkemper/mlcm-fixed"
 
 [tool.setuptools]
 packages = ["mlcm_fixed"]
