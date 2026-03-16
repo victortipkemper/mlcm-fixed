@@ -25,6 +25,14 @@ M. Heydarian, T. Doyle, and R. Samavi, "MLCM: Multi-Label Confusion Matrix," IEE
 
 
 
+## Installation
+
+Install the package using pip:
+
+```bash
+pip install -e .
+```
+
 ## Usage
 
 ### Basic Usage
