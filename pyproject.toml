@@ -6,13 +6,21 @@ build-backend = "setuptools.build_meta"
 name = "mlcm_fixed"
 version = "0.1.0"
 description = "Multi-Label Confusion Matrix"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Victor Tipkemper"}]
 requires-python = ">=3.8"
 dependencies = [
     "numpy",
 ]
 
+
+[project.urls]
+Homepage = "https://github.com/victortipkemper/mlcm"
+Repository = "https://github.com/victortipkemper/mlcm"
+
 [tool.setuptools]
 packages = ["mlcm_fixed"]
 
 [tool.setuptools.package-dir]
-mlcm_fixed = "src"
+mlcm_fixed = "mlcm_fixed"
