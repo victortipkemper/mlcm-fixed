@@ -91,8 +91,8 @@ The algorithms for handling each case are described in the original paper.
 The original repository would fail on this case:
 
 ```python
-pred_labels = [1, 0, 0, 1]
-true_labels = [1, 1, 1, 0]
+pred_labels = [[1, 0, 0, 1]]
+true_labels = [[1, 1, 1, 0]]
 ```
 
 Original (incorrect) output:
