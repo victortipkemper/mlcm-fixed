@@ -30,6 +30,11 @@ M. Heydarian, T. Doyle, and R. Samavi, "MLCM: Multi-Label Confusion Matrix," IEE
 Install the package using pip:
 
 ```bash
+pip install mlcm-fixed
+```
+
+Or for development (from cloned source):
+```bash
 pip install -e .
 ```
 
@@ -82,7 +87,7 @@ The algorithms for handling each case are described in the original paper.
 - `cm(label_true, label_pred)` - Main function, returns raw and normalized confusion matrices
 - `conf_mat_case_1(label_true, label_pred)` - Confusion matrix for Case I
 - `conf_mat_case_2(label_true, label_pred)` - Confusion matrix for Case II
-- `con_mat_case_3(label_true, label_pred)` - Confusion matrix for Case III
+- `conf_mat_case_3(label_true, label_pred)` - Confusion matrix for Case III
 - `normalize_conf_matrix(matrix)` - Normalize confusion matrix row-wise
 - `category_of_instance(label_instance_true, label_instance_pred)` - Determine which case an instance belongs to
 
